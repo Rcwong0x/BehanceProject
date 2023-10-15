@@ -54,9 +54,9 @@ describe("Post End-to-end Test", () => {
 					Authorization: `Bearer ${token}`,
 				})
 				.send({
-					title: "Una publicación de prueba",
+					title: "post test",
 					content:
-						"Esto es una publicación de prueba para saber si sí se está insertando en base de datos",
+						"Post test to confirm the DB",
 				});
 
 			expect(response.statusCode).toBe(201);

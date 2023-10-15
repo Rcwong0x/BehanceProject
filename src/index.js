@@ -16,16 +16,14 @@ const authRouter = require("./routers/auth");
 const validationError = require("./middlewares/validation-error");
 const unknownError = require("./middlewares/unknown-error");
 
-// Rutas
 app.use(postRouter);
 app.use(userRouter);
 app.use(commentRouter);
 app.use(authRouter);
 
-// Manejo de errores
 app.use(validationError);
 app.use(unknownError);
 
 app.listen(process.env.SERVER_PORT, function () {
-	console.log("> Escuchando puerto " + process.env.SERVER_PORT);
+	console.log("> Listen port " + process.env.SERVER_PORT);
 });

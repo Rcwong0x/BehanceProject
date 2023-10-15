@@ -1,12 +1,5 @@
 const { Sequelize } = require("sequelize");
 
-/*
-Si no tienes una base de datos, utiliza este código :)
-const sequelize = new Sequelize({
-	dialect: "sqlite",
-	storage: "./bedu-plus.db",
-});*/
-
 const {
 	MYSQL_HOST,
 	MYSQL_DATABASE,
@@ -31,9 +24,9 @@ exports.sequelize = sequelize;
 exports.connect = async function () {
 	try {
 		await sequelize.authenticate();
-		console.log("> Conectado a la base de datos");
+		console.log("> DB connected");
 	} catch (e) {
-		console.error("> No se puede conectar a la base de datos");
+		console.error("> Not possible connect to DB");
 		console.error(e);
 	}
 };
@@ -41,9 +34,9 @@ exports.connect = async function () {
 exports.sync = async function () {
 	try {
 		await sequelize.sync({ force: FORCE_DB_UPDATE === "yes" });
-		console.log("> Base de datos actualizada");
+		console.log("> DB updated");
 	} catch (e) {
-		console.error("> no se puede actualizar la base de datos");
+		console.error("> DB cannot be updated");
 		console.error(e);
 	}
 };

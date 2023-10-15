@@ -8,16 +8,16 @@ exports.login = async function (request, response) {
 
 	if (!user) {
 		return response.status(400).json({
-			message: "Usuario o contraseña inválidos",
-			messagedev: "No se encontro el usuario en la base de datos",
+			message: "Invalid Data",
+			messagedev: "Not user found in DB",
 			code: "ERR_AUTH",
 		});
 	}
 
 	if (user.password !== password) {
 		return response.status(400).json({
-			message: "Usuario o contraseña inválidos",
-			messagedev: "No se encontro el usuario en la base de datos",
+			message: "Invalid Data",
+			messagedev: "Not user found in DB",
 			code: "ERR_AUTH",
 		});
 	}

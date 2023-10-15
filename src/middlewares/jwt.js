@@ -12,7 +12,7 @@ passport.use(
 			const user = await findById(payload.id);
 
 			if (!user) {
-				return done({ message: "El usuario no existe en la base de datos" });
+				return done({ message: "Not user found in DB" });
 			}
 
 			// Se crea el request.user

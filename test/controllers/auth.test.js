@@ -8,11 +8,11 @@ jest.mock("../../src/services/user");
 describe("Auth Controller Unit Test", () => {
 	describe("login(request, response) test", () => {
 		it("should return a json web token if the credentials are correct", async () => {
-			// Arrange
+			
 			const request = {
 				body: {
-					username: "test",
-					password: "123123123",
+					username: "NewUser",
+					password: "123456789",
 				},
 			};
 
@@ -23,26 +23,24 @@ describe("Auth Controller Unit Test", () => {
 
 			findByUsername.mockResolvedValueOnce({
 				id: 1,
-				username: "test",
-				password: "123123123",
+				username: "NewUser",
+				password: "123456789",
 			});
 
-			sign.mockReturnValue("esto-es-un-jwt-xd");
+			sign.mockReturnValue("thi-is-a-jwt-xd");
 
-			// Act
 			await login(request, response);
 
-			// Assert
 			expect(response.status).toHaveBeenCalledWith(200);
 			expect(response.json).toHaveBeenCalledWith({
-				jwt: "esto-es-un-jwt-xd",
+				jwt: "thi-is-a-jwt-xd",
 			});
 		});
 
 		it("should return an error 400 if the username doesnt exist", async () => {
 			const request = {
 				body: {
-					username: "test",
+					username: "NewUser",
 					password: "781923891723981",
 				},
 			};
@@ -58,8 +56,8 @@ describe("Auth Controller Unit Test", () => {
 
 			expect(response.status).toHaveBeenCalledWith(400);
 			expect(response.json).toHaveBeenCalledWith({
-				message: "Usuario o contraseña inválidos",
-				messagedev: "No se encontro el usuario en la base de datos",
+				message: "Invalid Data",
+				messagedev: "Cannot find user",
 				code: "ERR_AUTH",
 			});
 		});
@@ -67,7 +65,7 @@ describe("Auth Controller Unit Test", () => {
 		it("should return an error 400 if the password is not the same", async () => {
 			const request = {
 				body: {
-					username: "test",
+					username: "NewUser",
 					password: "781923891723981",
 				},
 			};
@@ -79,7 +77,7 @@ describe("Auth Controller Unit Test", () => {
 
 			findByUsername.mockResolvedValueOnce({
 				id: 1,
-				username: "test",
+				username: "NewUser",
 				password: "unacontraseñatodachafaxd",
 			});
 
@@ -87,8 +85,8 @@ describe("Auth Controller Unit Test", () => {
 
 			expect(response.status).toHaveBeenCalledWith(400);
 			expect(response.json).toHaveBeenCalledWith({
-				message: "Usuario o contraseña inválidos",
-				messagedev: "No se encontro el usuario en la base de datos",
+				message: "Invalid Data",
+				messagedev: "Cannot find user",
 				code: "ERR_AUTH",
 			});
 		});

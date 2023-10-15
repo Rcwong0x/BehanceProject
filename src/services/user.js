@@ -5,7 +5,7 @@ exports.insert = function (data) {
 };
 
 exports.findByUsername = function (username) {
-	// SELECT * FROM users WHERE username = '...';
+	
 	return User.findOne({
 		where: {
 			username,
@@ -14,6 +14,6 @@ exports.findByUsername = function (username) {
 };
 
 exports.findById = function (id) {
-	// SELECT * FROM users WHERE id = '...';
+	
 	return User.findByPk(id);
 };
