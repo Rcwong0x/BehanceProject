@@ -1,14 +1,19 @@
 const express = require("express");
 const router = express.Router();
+
 const {
 	getPosts,
 	createPost,
 	getPost,
 	deletePost,
 	updatePost,
+	getPostByCategory,
 } = require("../controllers/post");
+
 const validator = require("../middlewares/validator");
+
 const jwtValidator = require("../middlewares/jwt");
+
 const {
 	createPostSchema,
 	updatePostSchema,
@@ -23,6 +28,8 @@ router.post(
 	validator.body(createPostSchema),
 	createPost
 );
+router.get("/posts/:category", getPostByCategory);
+
 router.put(
 	"/posts/:id",
 	jwtValidator,

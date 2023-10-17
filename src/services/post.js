@@ -8,6 +8,14 @@ exports.findById = function (id) {
 	return Post.findByPk(id);
 };
 
+exports.findByCategoy = function (category) {
+	return Post.findAll({
+		where: {
+			category:category
+		}
+	})
+};
+
 exports.insert = function (data) {
 	return Post.create(data);
 };

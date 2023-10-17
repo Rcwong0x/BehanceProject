@@ -9,6 +9,11 @@ module.exports = sequelize.define("posts", {
 			len: [5, 100],
 		},
 	},
+	category: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		defaultValue: "Unknow"
+	},
 	content: {
 		type: DataTypes.TEXT,
 		allowNull: false,

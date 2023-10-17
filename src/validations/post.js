@@ -13,3 +13,8 @@ exports.updatePostSchema = Joi.object({
 exports.paramsSchema = Joi.object({
 	id: Joi.number().required(),
 });
+
+exports.categorySchema = Joi.object({
+	id: Joi.string().required(),
+});
+
