@@ -1,24 +1,48 @@
 name: Continuos Integration/Continuos Delivery
 
+# Con esta configuración el proceso se ejecuta en cada push (de cualquier rama)
+# on: [push]
+
+# Con esta configuración el proceso se ejecuta solo en push a "master"
 on:
   push:
     branches:
       - master
 
 jobs:
-  
+  # Nombre del proceso a ejecutar
   continuos-integration:
-    
+    # El proceso va a ejecutarse sobre una instancia/contenedor de "Ubuntu"
     runs-on: ubuntu-latest
     steps:
-      
-      - name: Clone last version
+      # Clona el código utilizando un action oficial de Github
+      - name: Clonar la última versión del código
         uses: actions/checkout@v4
 
-      - name: Configure a Node.js environment
+      # Configura el Ubuntu para utilizar Node.js con un action oficial de Github
+      - name: Configurar un entorno de Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
+      # Correr los comandos de Node.js para asegurar la integridad del código
       - run: npm install
       - run: npm test
+
+  continous-delivery:
+    needs: continuos-integration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy on server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd BehanceProject/
+            git pull origin master
+            npm install --production
+            pm2 restart src/index.js
